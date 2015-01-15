@@ -17,19 +17,21 @@ using namespace std;
 
 //Based on example found at http://goo.gl/dht51R (MSDN Task scheduler example)
 //Takes a unicode string indicating the path to the executable to schedule.
-int scheduleNotepad(wstring *pwstrExecutablePath, wstring *pwstrCommandArguments){
+int scheduleProgWithArgs(wstring *pwstrExecutablePath, wstring *pwstrCommandArguments){
 	
 	//Recommend only changing these when integrating into other projects
 	/*****************************************************************************/
 	// hardcoded values that can become function arguments if we have time
 	_bstr_t taskStartTime = _bstr_t(L"2005-01-15T16:42:00");
 	LPCWSTR wszTaskName = L"SELF SCHEDULED ARGS TEST";
-	
+	// END hardcoded values ...
+
+	//Values passed to the function as arguments -- used to be hardcoded
 	//path to the executable to schedule.
 	wstring wstrExecutablePath = *pwstrExecutablePath;
 	//Command line arguments
 	wstring wstrCommandArguments = *pwstrCommandArguments;
-	// END hardcoded values ...
+	// END Values passed to the function...
 	/*****************************************************************************/
 
 	HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
@@ -404,15 +406,17 @@ int scheduleNotepad(wstring *pwstrExecutablePath, wstring *pwstrCommandArguments
 
 int _tmain(int argc, _TCHAR* argv[]){
 	
+	//not part of the example. used for testing
+	/*
 	for (int i = 0; i < argc; i++){
 		//currently only printing first character...but i think it works!
 		printf("\n Arg %d:\t%s", i, argv[i]);
 	}
-
+	*/
 	
 	wchar_t lpFileName[MAX_PATH];
 	GetModuleFileName(NULL, lpFileName, MAX_PATH);
 	wstring wstrExecutablePath = (wstring)lpFileName;
 	wstring wstrCommandArguments = L" /someoption";
-	return scheduleNotepad(&wstrExecutablePath, &wstrCommandArguments);
+	return scheduleProgWithArgs(&wstrExecutablePath, &wstrCommandArguments);
 }
