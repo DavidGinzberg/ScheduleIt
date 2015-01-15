@@ -22,8 +22,8 @@ int scheduleNotepad(wstring *pwstrExecutablePath, wstring *pwstrCommandArguments
 	//Recommend only changing these when integrating into other projects
 	/*****************************************************************************/
 	// hardcoded values that can become function arguments if we have time
-	_bstr_t taskStartTime = _bstr_t(L"2005-01-15T16:11:00");
-	LPCWSTR wszTaskName = L"SELF SCHEDULED TASK WITH ARGS TEST";
+	_bstr_t taskStartTime = _bstr_t(L"2005-01-15T16:42:00");
+	LPCWSTR wszTaskName = L"SELF SCHEDULED ARGS TEST";
 	
 	//path to the executable to schedule.
 	wstring wstrExecutablePath = *pwstrExecutablePath;
@@ -405,20 +405,14 @@ int scheduleNotepad(wstring *pwstrExecutablePath, wstring *pwstrCommandArguments
 int _tmain(int argc, _TCHAR* argv[]){
 	
 	for (int i = 0; i < argc; i++){
+		//currently only printing first character...but i think it works!
 		printf("\n Arg %d:\t%s", i, argv[i]);
 	}
 
-	// Get the windows directory and set the path to the program to
-	// execute (currently just using notepad.exe)
-	//Replace this with the path to this program
-	//wchar_t *wchrExePathBuffer;
-	//size_t bufferSize = 500;
-	//_wdupenv_s(&wchrExePathBuffer, &bufferSize, L"WINDIR");
-	//wstring wstrExecutablePath = (wstring)wchrExePathBuffer;
-	//wstrExecutablePath += L"\\SYSTEM32\\NOTEPAD.EXE";
+	
 	wchar_t lpFileName[MAX_PATH];
 	GetModuleFileName(NULL, lpFileName, MAX_PATH);
 	wstring wstrExecutablePath = (wstring)lpFileName;
-	wstrExecutablePath += L" /someoption";
+	wstring wstrCommandArguments = L" /someoption";
 	return scheduleNotepad(&wstrExecutablePath, &wstrCommandArguments);
 }
